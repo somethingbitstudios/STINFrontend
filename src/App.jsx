@@ -139,7 +139,7 @@ useEffect(() => {
       const token = localStorage.getItem('jwt_token'); // Předpokládám uložení JWT
       if (!token) return;
 
-      const response = await fetch('https://stingraf-hzf9cxgtgcg7fzcg.germanywestcentral-01.azurewebsites.net//api/Preferences', {
+      const response = await fetch('https://stingraf-hzf9cxgtgcg7fzcg.germanywestcentral-01.azurewebsites.net/api/Preferences', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
@@ -181,7 +181,7 @@ useEffect(() => {
     try {
 		console.log(loginUser);
 		console.log(loginPass);
-      const response = await fetch('https://stingraf-hzf9cxgtgcg7fzcg.germanywestcentral-01.azurewebsites.net//api/Auth/login', {
+      const response = await fetch('https://stingraf-hzf9cxgtgcg7fzcg.germanywestcentral-01.azurewebsites.net/api/Auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: loginUser, password: loginPass })
@@ -209,7 +209,7 @@ useEffect(() => {
   const fetchAvailableCurrencies = async () => {
     try {
       const token = localStorage.getItem('jwt_token');
-      const response = await fetch('https://stingraf-hzf9cxgtgcg7fzcg.germanywestcentral-01.azurewebsites.net//api/currency/availableCurrencies', {
+      const response = await fetch('https://stingraf-hzf9cxgtgcg7fzcg.germanywestcentral-01.azurewebsites.net/api/currency/availableCurrencies', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
@@ -243,7 +243,7 @@ useEffect(() => {
     try {
       const token = localStorage.getItem('jwt_token');
       const targetsParam = targetCurrencies.join(',');
-      const url = `https://stingraf-hzf9cxgtgcg7fzcg.germanywestcentral-01.azurewebsites.net//api/currency/summaryRange?baseCurr=${baseCurrency}&targets=${targetsParam}&from=${dateFrom}&to=${dateTo}`;
+      const url = `https://stingraf-hzf9cxgtgcg7fzcg.germanywestcentral-01.azurewebsites.net/api/currency/summaryRange?baseCurr=${baseCurrency}&targets=${targetsParam}&from=${dateFrom}&to=${dateTo}`;
       console.log(url)
       const response = await fetch(url, {
         headers: { 'Authorization': `Bearer ${token}` }
@@ -272,7 +272,7 @@ useEffect(() => {
 	
 	try {
     const token = localStorage.getItem('jwt_token');
-    await fetch('https://stingraf-hzf9cxgtgcg7fzcg.germanywestcentral-01.azurewebsites.net//api/Preferences', {
+    await fetch('https://stingraf-hzf9cxgtgcg7fzcg.germanywestcentral-01.azurewebsites.net/api/Preferences', {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
