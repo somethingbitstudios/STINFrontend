@@ -226,20 +226,20 @@ useEffect(() => {
       setAppError(t('errorMsg'));
     }
   };
-
-  const handleCalculate = async () => {
+	
+const handleCalculate = async () => {
     setAppError('');
     setSummary(null);
-	console.log(targetCurrencies)
-	if(targetCurrencies.Count==0){
-	setAppError(t('noTargets'));
-	console.log("g")
-	return;
-	
-	}
+    
+    // OPRAVA: Použití .length místo .Count
+    if (targetCurrencies.length === 0) {
+      setAppError(t('noTargets'));
+      return;
+    }
+
     localStorage.setItem('savedBaseCurrency', baseCurrency);
     localStorage.setItem('savedTargetCurrencies', JSON.stringify(targetCurrencies));
-	
+    
     try {
       const token = localStorage.getItem('jwt_token');
       const targetsParam = targetCurrencies.join(',');
@@ -258,7 +258,6 @@ useEffect(() => {
       const data = await response.json();
 
       if (!data || !data.allRates || data.allRates.length === 0) {
-		 console.log("?AEg")
         setAppError(t('noData'));
         return;
       }
@@ -266,29 +265,27 @@ useEffect(() => {
       setSummary(data);
     } catch (err) {
       logErrorToPersistentStorage(err.message);
-	  console.log("?AEgj")
       setAppError(t('errorMsg'));
     }
-	
-	try {
-    const token = localStorage.getItem('jwt_token');
-    await fetch('https://stingraf-hzf9cxgtgcg7fzcg.germanywestcentral-01.azurewebsites.net/api/Preferences', {
-      method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}` 
-      },
-      body: JSON.stringify({
-        baseCurrency,
-        targetCurrencies,
-        dateFrom,
-        dateTo
-      })
-    });
-  } catch (error) {
-    console.error("Nepodařilo se uložit nastavení:", error);
-  }
-  
+    
+    try {
+      const token = localStorage.getItem('jwt_token');
+      await fetch('https://stingraf-hzf9cxgtgcg7fzcg.germanywestcentral-01.azurewebsites.net/api/Preferences', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` 
+        },
+        body: JSON.stringify({
+          baseCurrency,
+          targetCurrencies,
+          dateFrom,
+          dateTo
+        })
+      });
+    } catch (error) {
+      console.error("Nepodařilo se uložit nastavení:", error);
+    }
   };
 
   const handleCheckboxChange = (isoCode) => {
