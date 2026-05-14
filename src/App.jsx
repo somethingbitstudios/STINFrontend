@@ -474,7 +474,7 @@ const handleCalculate = async () => {
     </tr>
   </thead>
   <tbody>
-    {summary.allRates.map((rate, index) => {
+    {summary.allRates.slice(1).map((rate, index) => {
       // 1. Bezpečné získání cílové měny (záleží, jak se vlastnost jmenuje v tvém C# DTO)
       const targetCurr = rate.quoteCurrency || rate.quote || rate.currency || rate.targetCurrency || 'N/A';
       
